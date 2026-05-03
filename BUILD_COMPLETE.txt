@@ -1,0 +1,12 @@
+GolfClip scaffold build complete.
+Backend: NestJS with GraphQL, MongoDB, Coaches/Videos/Social/Accounts modules
+Frontend: Next.js 14 + MUI with Apollo Client
+All pages: Dashboard (/), Upload (/upload), Videos (/videos), Connect (/connect)
+
+Installed:
+- Backend: npm install --legacy-peer-deps (completed)
+- Frontend: npm install (completed)
+
+To run:
+- Backend: cd ~/Documents/git/golfclip && npm run start:dev
+- Frontend: cd ~/Documents/git/golfclip/frontend && npm run dev
