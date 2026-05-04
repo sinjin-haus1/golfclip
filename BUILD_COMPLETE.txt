@@ -1,12 +1,48 @@
-GolfClip scaffold build complete.
-Backend: NestJS with GraphQL, MongoDB, Coaches/Videos/Social/Accounts modules
-Frontend: Next.js 14 + MUI with Apollo Client
-All pages: Dashboard (/), Upload (/upload), Videos (/videos), Connect (/connect)
+GolfClip Build Complete
+========================
+Date: 2026-05-04
+Status: COMPLETE
 
-Installed:
-- Backend: npm install --legacy-peer-deps (completed)
-- Frontend: npm install (completed)
+## What Was Built
 
-To run:
-- Backend: cd ~/Documents/git/golfclip && npm run start:dev
-- Frontend: cd ~/Documents/git/golfclip/frontend && npm run dev
+### Backend (NestJS + GraphQL + MongoDB)
+- UploadModule (`src/uploads/`) — Cloudinary integration for before/after swing photo upload
+- CloudinaryService (`src/shared/cloudinary.service.ts`) — image/video storage
+- TtsService (`src/social/tts.service.ts`) — OpenAI/ElevenLabs TTS with 25 golf-specific trending hooks across 5 styles
+- VideoGeneratorService (`src/videos/video-generator.service.ts`) — FFmpeg pipeline; 5 styles × 3 aspect ratios
+- SocialService (`src/social/social.service.ts`) — TikTok/Instagram/YouTube auto-posting
+- VideosModule — `generateVideo` mutation (fire-and-forget async with status polling)
+- Schema fixes — removed invalid @nestjs/graphql String imports, fixed _id types, added MongooseModule imports
+- Bug fixes — coaches resolver accessing private coachModel property
+
+### Frontend (Next.js 14 + MUI + Apollo Client)
+- Dashboard (`/`) — live stats (total/completed/processing), recent videos grid, style buttons
+- Upload (`/upload`) — real GraphQL generateVideo mutation, form validation, success feedback
+- Videos (`/videos`) — Apollo polling queries, download buttons, before/after thumbnails, status chips
+- Connect (`/connect`) — platform cards with OAuth flow scaffolding, permissions info
+
+### Video Styles (all 5 implemented)
+- SWING_TRANSFORM (main) — before/after side-by-side swing comparison
+- PUTTING_MASTER — putting form breakdowns (vertical stack)
+- DRILL_DEMO — golf swing drills
+- COURSE_STRATEGY — course management and strategy
+- LESSON_HIGHLIGHT — lesson highlights and tips
+
+### Aspect Ratios
+- 9:16 (TikTok/Reels/Shorts)
+- 1:1 (Instagram)
+- 16:9 (YouTube)
+
+## Next Steps (Requires Configuration)
+1. Set environment variables:
+   - MONGODB_URI
+   - CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+   - OPENAI_API_KEY or ELEVENLABS_API_KEY (for TTS narration)
+2. Implement OAuth routes (`/api/auth/tiktok`, `/api/auth/instagram`, `/api/auth/youtube`) for social connect
+3. Add Redis/Bull for background video queue (VideoGeneratorService fires synchronously — swap to BullMQ for production)
+4. FFmpeg must be installed on the server: `brew install ffmpeg` (macOS) or `apt install ffmpeg` (Linux)
+5. Frontend build/deploy: `cd frontend && npm run build && npm start`
+
+## Commits
+- 4ab5507 feat: add Upload, Cloudinary, TTS, VideoGenerator, Social post services
+- 94c51a2 Initial: GolfClip scaffold - faceless AI video for golf instructors
