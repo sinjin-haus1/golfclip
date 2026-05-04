@@ -1,12 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { ObjectType, Field, ID, String } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
 @Schema({ timestamps: true })
 export class Coach extends Document {
   @Field(() => ID)
-  _id: string;
+  _id: any;
   @Field()
   @Prop({ required: true })
   name: string;

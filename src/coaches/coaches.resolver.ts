@@ -8,7 +8,7 @@ export class CoachesResolver {
 
   @Query(() => [Coach])
   coaches() {
-    return this.coachesService.coachModel.find().exec();
+    return this.coachesService.findAll();
   }
 
   @Query(() => Coach, { nullable: true })

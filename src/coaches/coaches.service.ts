@@ -11,6 +11,10 @@ export class CoachesService {
     return this.coachModel.create(data);
   }
 
+  async findAll(): Promise<Coach[]> {
+    return this.coachModel.find().exec();
+  }
+
   async findByEmail(email: string): Promise<Coach> {
     return this.coachModel.findOne({ email }).exec();
   }

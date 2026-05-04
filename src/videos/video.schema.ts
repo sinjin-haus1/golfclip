@@ -1,12 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { ObjectType, Field, ID, String, Int } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
+
+export enum VideoStyle {
+  SWING_TRANSFORM = 'SWING_TRANSFORM',
+  PUTTING_MASTER = 'PUTTING_MASTER',
+  DRILL_DEMO = 'DRILL_DEMO',
+  COURSE_STRATEGY = 'COURSE_STRATEGY',
+  LESSON_HIGHLIGHT = 'LESSON_HIGHLIGHT',
+}
 
 @ObjectType()
 @Schema({ timestamps: true })
 export class Video extends Document {
   @Field(() => ID)
-  _id: string;
+  _id: any;
   @Field()
   @Prop({ required: true })
   coachId: string;
@@ -28,9 +36,15 @@ export class Video extends Document {
   @Field(() => Int)
   @Prop({ default: 0 })
   aspectRatio: number;
-  @Field()
+  @Field(() => String)
   @Prop()
   style: string;
+  @Field()
+  @Prop()
+  narrationText: string;
+  @Field()
+  @Prop()
+  hook: string;
   @Field()
   @Prop()
   createdAt: Date;
